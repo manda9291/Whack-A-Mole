@@ -1,0 +1,116 @@
+<DOCTYPE html>
+	<html>
+	<head>
+		<title>Whack A Cell</title>
+	</head>
+	<button id='PlayGame'>PLAY</button>
+	<div class='gameBoard'>
+			<div id='1'class='CellHoles'></div>
+			<div id='2'class='CellHoles'></div>
+			<div id='3'class='CellHoles'></div>
+			<div id='4'class='CellHoles'></div>
+			<div id='5'class='CellHoles'></div>
+			<div id='6'class='CellHoles'></div>
+			<div id='7'class='CellHoles'></div>
+			<div id='8'class='CellHoles'></div>
+			<div id='9'class='CellHoles'></div>
+		</div>
+		<div><id='background'/div>
+	<body>
+		<style type="text/css">
+			.gameBoard{
+				background-image: url('http://hammando.rubberslug.com/gallery/img_b.aspx?ImageID=130125&Pass=');
+				height: 600px;
+				width: 600px;
+				position: relative;
+			}
+			.cellHoles{
+				
+				height: 150px;
+				width: 150px;
+				border: 2px solid black;
+				float: left;
+				padding: 5px;
+				margin: 5px;	
+
+			}
+			.active{
+				background-image: url('http://cdn.staticneo.com/w/dragonball/7/74/Cell_03.jpg')
+			}
+		</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script>	
+	"use strict"
+	$(document).ready(function(){
+		var timer;
+
+		});
+	//setTimeout(function(){
+		//playGame();
+	//},500);
+
+
+ //Press PLAY button to start game
+	$('#PlayGame').click(function(){
+       	playGame();
+       	console.log('start')
+        
+    });
+	
+	//Game starts popping up random Cell one square at a time
+	function playGame (){
+    	var cellHoles = $('.cellHoles');
+    	var random = Math.floor(Math.random() * 9);
+    	var cellAnimation = cellHoles[random];
+    	var id = cellAnimation.getAttribute('id');
+    	setTimeout(function(){
+    		animateCell(id);
+    		startTimer();
+    	}, 500);
+
+    };
+
+   //animation
+    function animateCell (id){
+	    $('#' + id).addClass('active');
+	    setTimeout(function(){
+	    	$('#' + id).removeClass('active');
+	    }, 500);
+	};
+	//round
+	function round(){
+		playGame();
+	}
+	//start timer
+	function startTimer(){
+		var timer = setTimeout(playGame,1000);
+	}
+	//stop timer
+	function stopTimer(){
+		clearTimeout(timer);
+		gameOver();
+	};
+	//gamem over
+	 function gameOver(){
+	 	alert('"I get it, little Kakarot finally admits that hes too weak to continue." -Vegeta')
+	 };
+	 //click
+	 $('.cellHoles').click(function () {
+		if ($(this).hasClass('active')) {
+			$(this).removeClass('active');
+			stopTimer();
+			round();
+		}else {
+			gameOver();
+			stopTimer();
+			location.reload(true);
+		}
+	});
+	 
+
+
+
+	</script>
+	</body>
+	</html>
